@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+	<title>jQuery.Overlay</title>
+	
+	<!-- google is nice -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	
+	<!-- we'll still need our stuffs -->
+	<script type="text/javascript" src="jquery.overlay.js"></script>
+	
+	<!-- local stuff -->
+	<script type="text/javascript">
+		$(document).ready(function(e) {
+		});
+		
+		var h1Demo = function (e) {
+			$("h1").overlay();
+		};
+		
+		var docDemo = function (e) {
+			$.overlay();
+		};
+	</script>
+</head>
+
+<body>
+
+<h1>jQuery.Overlay</h1>
+
+<p>
+	A quite simple jQuery plugin to show and hide a overlay over the page.
+</p>
+
+<h2>Demo</h2>
+
+<p>
+	<a href="javascript:h1Demo();">H1 Overlay</a>, creates a overlay over the H1 at the top.
+</p>
+
+<p>
+	<a href="javascript:docDemo();">Document</a>, creates a overlay over the whole document.
+</p>
+
+<p>
+	Both overlays can be clicked and they will fade away. See ze source for more info.
+</p>
+
+<h2>Usage</h2>
+
+<p>
+	Include your jQuery and <code>jquery.overlay</code> files in your source. And go nuts.
+</p>
+
+</body>
+</html>
