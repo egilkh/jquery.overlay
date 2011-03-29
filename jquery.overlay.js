@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jquery.overlay.js, a simple overlay lib for jQuery
  *
  * Author: Egil Hanger (egilkh@gmail.com)
