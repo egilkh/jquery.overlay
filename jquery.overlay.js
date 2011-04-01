@@ -5,6 +5,10 @@
  * 
  * Licensed under the MIT license.
  *
+ * TODO: 
+ init (options, callback)
+	.show(callback)
+	should do the tricks
  */
 (function($){
 
@@ -57,6 +61,8 @@
 				var data = $this.data('overlay');
 				
 				if (!data) {
+					// do init
+					$this.overlay('init');
 					return;
 				}
 				
