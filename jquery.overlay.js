@@ -5,15 +5,11 @@
  * 
  * Licensed under the MIT license.
  *
- * TODO: 
- init (options, callback)
-	.show(callback)
-	should do the tricks
  */
 (function($){
 
 	var methods = {
-		init : function (options) {
+		init : function (options, c) {
 			var settings = $.extend({ },
 			{
 				'backgroundColor' : '#000',
@@ -51,7 +47,7 @@
 					$('body').append(ol);
 				}
 
-				$this.overlay('show');
+				$this.overlay('show', c);
 			});
 		},
 		show : function (c) {
