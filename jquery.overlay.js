@@ -102,7 +102,7 @@
 				var $this = $(this);
 				var data = $this.data('overlay');
 				
-				if (data.ol) {
+				if (data && data.ol) {
 					data.ol.fadeOut(data.settings['fadeSpeed'], function (e) {
 						data.settings['onHide'].call($this);
 						if (c) {
