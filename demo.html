@@ -15,11 +15,12 @@
 		});
 		
 		var h1Demo = function (e) {
-			$("h1").overlay();
+			$("h1").overlay({ onshow: function(e) {console.log(this)}});
 		};
 		
 		var docDemo = function (e) {
-			$.overlay();
+			//$.overlay();
+			$("h1").overlay('show', function(e) { alert('a') } );
 		};
 	</script>
 </head>

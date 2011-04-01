@@ -15,11 +15,14 @@
 		init : function (options) {
 			var settings = $.extend({ },
 			{
-				'background-color' : '#000',
+				'backgroundColor' : '#000',
 				'opacity' : 0.2,
-				'z-index' : 100,
-				'removeonclick' : true,
-				'click' : function (e) {}
+				'zIndex' : 100,
+				'autoClick' : true,
+				'fadeSpeed' : 400,
+				'click' : function (e) {},
+				'onShow' : function () {},
+				'onHide' : function () {}
 			}, options);
 
 			return this.each(function () {
@@ -33,9 +36,9 @@
 					.hide()
 					.css({
 						position : 'absolute',
-						backgroundColor : settings['background-color'],
+						backgroundColor : settings['backgroundColor'],
 						opacity : settings['opacity'],
-						zIndex : settings['z-index']
+						zIndex : settings['zIndex']
 					})
 					.bind('click.overlay', {o : $this}, methods.click);
 					
@@ -50,7 +53,7 @@
 				$this.overlay('show');
 			});
 		},
-		show : function ( ) {
+		show : function (c) {
 
 			return this.each(function (e) {
 				var $this = $(this);
@@ -68,6 +71,7 @@
 						top : 0
 					});
 				} else {
+					// this might be wrong for some browsers?
 					ol.css( {
 						left: $this.offset().left,
 						top : $this.offset().top
@@ -76,17 +80,29 @@
 				
 				ol.width($this.width())
 				.height($this.height())
-				.fadeIn();
+				.fadeIn(data.settings['fadeSpeed'], function (e) {
+					data.settings['onShow'].call($this);
+					if (c) {
+						c.call($this);
+					}
+				});
+				
+				
 			});
 		},
-		hide : function ( ) {
+		hide : function (c) {
 
 			return this.each(function (e) {
 				var $this = $(this);
 				var data = $this.data('overlay');
 				
 				if (data.ol) {
-					data.ol.fadeOut();
+					data.ol.fadeOut(data.settings['fadeSpeed'], function (e) {
+						data.settings['onHide'].call($this);
+						if (c) {
+							c.call($this);
+						}
+					});
 				}
 			});
 		},
@@ -108,7 +124,7 @@
 			
 			var data = $this.data('overlay');
 			if (data) {
-				if (data.settings['removeonclick']) {
+				if (data.settings['autoClick']) {
 					$this.overlay('hide');
 				}
 
