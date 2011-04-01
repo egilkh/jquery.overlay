@@ -1,13 +1,10 @@
 ﻿/*
- * jquery.overlay.js, a simple overlay lib for jQuery
+ * jquery.overlay.js, jQuery plugin to create overlay over any element
  *
- * Author: Egil Hanger (egilkh@gmail.com)
+ * Copyright 2011, Egil Hanger (egilkh@gmail.com)
  * 
- * Licensed under the {some_license}.
+ * Licensed under the MIT license.
  *
- * TODO:
-	ESC Keylistener
-		I'm a little in doubt on this one
  */
 (function($){
 
