@@ -62,21 +62,28 @@
 				
 				var ol = data.ol;
 				
+				var w = 0;
+				var h = 0;
+				
 				if ($this[0].nodeName && $this[0].nodeName === "#document") {
 					ol.css({
 						left : 0,
 						top : 0
 					});
+					w = $this.width();
+					h = $this.height();
 				} else {
 					// this might be wrong for some browsers?
 					ol.css( {
 						left: $this.offset().left,
 						top : $this.offset().top
 					});
+					w = $this.outerWidth();
+					h = $this.outerHeight();
 				}
 				
-				ol.width($this.width())
-				.height($this.height())
+				ol.width(w)
+				.height(h)
 				.fadeIn(data.settings['fadeSpeed'], function (e) {
 					data.settings['onShow'].call($this);
 					if (c) {
