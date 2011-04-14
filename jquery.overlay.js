@@ -32,7 +32,6 @@
 					var ol = $('<div />')
 					.hide()
 					.css({
-						position : 'absolute',
 						backgroundColor : settings['backgroundColor'],
 						opacity : settings['opacity'],
 						zIndex : settings['zIndex']
@@ -68,25 +67,31 @@
 				var h = 0;
 				
 				if ($this[0].nodeName && $this[0].nodeName === "#document") {
+					var w = '100%';
+					var p = 'fixed';
+					if (!self.innerWidth) { // Special case for IE8
+						w = document.body.clientWidth;
+						p = 'absolute';
+					}
 					ol.css({
 						left : 0,
-						top : 0
+						top : 0,
+						width : w,
+						height : '100%',
+						position : p
 					});
-					w = $this.width();
-					h = $this.height();
 				} else {
 					// this might be wrong for some browsers?
 					ol.css( {
 						left: $this.offset().left,
-						top : $this.offset().top
+						top : $this.offset().top,
+						width : $this.outerWidth(),
+						height : $this.outerHeight(),
+						position : 'absolute'
 					});
-					w = $this.outerWidth();
-					h = $this.outerHeight();
 				}
 				
-				ol.width(w)
-				.height(h)
-				.fadeIn(data.settings['fadeSpeed'], function (e) {
+				ol.fadeIn(data.settings['fadeSpeed'], function (e) {
 					data.settings['onShow'].call($this);
 					if (c) {
 						c.call($this);
