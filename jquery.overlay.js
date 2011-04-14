@@ -18,8 +18,10 @@
 				'autoClick' : true,
 				'fadeSpeed' : 400,
 				'click' : function (e) {},
-				'onShow' : function () {},
-				'onHide' : function () {}
+				'onShow' : function (e) {}, 	// Event at the same time as it will show
+				'onHide' : function (e) {},		// Event at the same time as it will hide
+				'onShown' : function (e) {},	// Event (chained) after fadeIn
+				'onHidden' : function (e) {},	// Event (chained) after fadeOut
 			}, options);
 
 			return this.each(function () {
@@ -91,14 +93,24 @@
 					});
 				}
 				
-				ol.fadeIn(data.settings['fadeSpeed'], function (e) {
-					data.settings['onShow'].call($this);
-					if (c) {
-						c.call($this);
-					}
-				});
+				setTimeout(function() {
+					ol.fadeIn(data.settings['fadeSpeed'], function (e) {
+						setTimeout(function() {
+							data.settings['onShown'].call($this);
+						}, 25);
+						
+						if (c) {
+							setTimeout(function() {
+								c.call($this);
+							}, 25);
+						}
+					});
+				}, 25);
 				
-				
+				setTimeout(function() {
+					data.settings.onShow.call($this);
+				}, 25);
+
 			});
 		},
 		hide : function (c) {
@@ -108,12 +120,26 @@
 				var data = $this.data('overlay');
 				
 				if (data && data.ol) {
-					data.ol.fadeOut(data.settings['fadeSpeed'], function (e) {
-						data.settings['onHide'].call($this);
-						if (c) {
-							c.call($this);
-						}
-					});
+				
+					setTimeout(function() {
+						data.ol.fadeOut(data.settings['fadeSpeed'], function (e) {
+							setTimeout(function() {
+								data.settings['onHidden'].call($this);
+							}, 25);
+						
+							if (c) {
+								setTimeout(function() {
+									c.call($this);
+								}, 25);
+							}
+						});
+						
+					}, 25);
+				
+					setTimeout(function() {
+						data.settings.onHide.call($this);
+					}, 25);
+					
 				}
 			});
 		},
