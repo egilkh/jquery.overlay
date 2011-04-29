@@ -2,7 +2,7 @@
  * jquery.overlay.js, jQuery plugin to create overlay over any element
  *
  * Copyright 2011, Egil Hanger (egilkh@gmail.com)
- * 
+ *
  * Licensed under the MIT license.
  *
  */
@@ -25,12 +25,12 @@
 			}, options);
 
 			return this.each(function () {
-			
+
 				var $this = $(this);
 				var data = $this.data('overlay');
-				
+
 				if (!data) {
-					
+
 					var ol = $('<div />')
 					.hide()
 					.css({
@@ -39,12 +39,12 @@
 						zIndex : settings['zIndex']
 					})
 					.bind('click.overlay', {o : $this}, methods.click);
-					
+
 					$this.data('overlay', {
 						'ol' : ol,
 						'settings' : settings
 					});
-					
+
 					$('body').append(ol);
 				}
 
@@ -56,30 +56,32 @@
 			return this.each(function (e) {
 				var $this = $(this);
 				var data = $this.data('overlay');
-				
+
 				if (!data) {
 					// do init
 					$this.overlay('init');
 					return;
 				}
-				
+
 				var ol = data.ol;
-				
+
 				var w = 0;
 				var h = 0;
-				
+
 				if ($this[0].nodeName && $this[0].nodeName === "#document") {
 					var w = '100%';
+					var h = '100%';
 					var p = 'fixed';
 					if (!self.innerWidth) { // Special case for IE8
 						w = document.body.clientWidth;
+						h = document.body.clientHeight;
 						p = 'absolute';
 					}
 					ol.css({
 						left : 0,
 						top : 0,
 						width : w,
-						height : '100%',
+						height : h,
 						position : p
 					});
 				} else {
@@ -92,13 +94,13 @@
 						position : 'absolute'
 					});
 				}
-				
+
 				setTimeout(function() {
 					ol.fadeIn(data.settings['fadeSpeed'], function (e) {
 						setTimeout(function() {
 							data.settings['onShown'].call($this);
 						}, 25);
-						
+
 						if (c) {
 							setTimeout(function() {
 								c.call($this);
@@ -106,7 +108,7 @@
 						}
 					});
 				}, 25);
-				
+
 				setTimeout(function() {
 					data.settings.onShow.call($this);
 				}, 25);
@@ -118,28 +120,28 @@
 			return this.each(function (e) {
 				var $this = $(this);
 				var data = $this.data('overlay');
-				
+
 				if (data && data.ol) {
-				
+
 					setTimeout(function() {
 						data.ol.fadeOut(data.settings['fadeSpeed'], function (e) {
 							setTimeout(function() {
 								data.settings['onHidden'].call($this);
 							}, 25);
-						
+
 							if (c) {
 								setTimeout(function() {
 									c.call($this);
 								}, 25);
 							}
 						});
-						
+
 					}, 25);
-				
+
 					setTimeout(function() {
 						data.settings.onHide.call($this);
 					}, 25);
-					
+
 				}
 			});
 		},
@@ -148,7 +150,7 @@
 			return this.each(function (e) {
 				var $this = $(this);
 				var data = $this.data('overlay');
-				
+
 				if (data) {
 					data.unbind('.overlay');
 					data.ol.remove();
@@ -158,7 +160,7 @@
 		},
 		click : function (e) {
 			var $this = e.data.o; // jQuery object we called .overlay() on.
-			
+
 			var data = $this.data('overlay');
 			if (data) {
 				if (data.settings['autoClick']) {
@@ -169,7 +171,7 @@
 			}
 		}
 	};
-	
+
 	$.fn.overlay = function(method) { // method wrapper
 		if ( methods[method] ) {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -179,7 +181,7 @@
 			$.error('Method ' +  method + ' does not exist on jQuery.Overlay');
 		}
 	};
-	
+
 	// shorthand for $(document) overlay
 	$.overlay = function (options) {
 		$(document).overlay(options);
