@@ -21,7 +21,7 @@
 				'onShow' : function (e) {}, 	// Event at the same time as it will show
 				'onHide' : function (e) {},		// Event at the same time as it will hide
 				'onShown' : function (e) {},	// Event (chained) after fadeIn
-				'onHidden' : function (e) {},	// Event (chained) after fadeOut
+				'onHidden' : function (e) {}	// Event (chained) after fadeOut
 			}, options);
 
 			return this.each(function () {
