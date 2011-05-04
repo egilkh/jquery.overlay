@@ -29,9 +29,11 @@
 				var $this = $(this);
 				var data = $this.data('overlay');
 
+				var ol = data ? data.ol : null;
+
 				if (!data) {
 
-					var ol = $('<div />')
+					ol = $('<div />')
 					.hide()
 					.css({
 						backgroundColor : settings['backgroundColor'],
@@ -40,13 +42,13 @@
 					})
 					.bind('click.overlay', {o : $this}, methods.click);
 
-					$this.data('overlay', {
-						'ol' : ol,
-						'settings' : settings
-					});
-
 					$('body').append(ol);
 				}
+
+				$this.data('overlay', {
+					'ol' : ol,
+					'settings' : settings
+				});
 
 				$this.overlay('show', c);
 			});
